@@ -1,48 +1,46 @@
+const myform = document.getElementById("myform");
 
-const myform = document.getElementById('myform')
+myform.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-
-myform.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    dogstats()
-    .then(data => {
-        console.log(data); // Log the data when the promise resolves
+  dogstats()
+    .then((data) => {
+      console.log(data); // Log the data when the promise resolves
     })
-    .catch(error => {
-        console.error('Error:', error.message);
+    .catch((error) => {
+      console.error("Error:", error.message);
     });
-
 });
 
 // api details
-const breed = 'golden retriever';
-const apiKey = 'HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM';
+const breed = "golden retriever";
+const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
 
 function dogstats() {
   return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breed}`, {
-      method: 'GET',
-      headers: {
-          'X-Api-Key': apiKey,
-          'Content-Type': 'application/json'
-      }
+    method: "GET",
+    headers: {
+      "X-Api-Key": apiKey,
+      "Content-Type": "application/json",
+    },
   })
-  .then(response => {
+    .then((response) => {
       if (!response.ok) {
-          throw new Error('Request failed');
+        throw new Error("Request failed");
       }
       return response.json();
-  })
-  .then(result => {
+    })
+    .then((result) => {
       console.log(result);
-      
+
       return result; // Return the result for further processing if needed
-  })
-  .catch(error => {
-      console.error('Error:', error.message);
-  });
+    })
+    .catch((error) => {
+      console.error("Error:", error.message);
+    });
 }
 
+// Slider related Javascript
 const options = {
   indicators: true,
   height: 450,
@@ -52,4 +50,3 @@ document.addEventListener("DOMContentLoaded", function () {
   const elems = document.querySelectorAll(".slider");
   const instances = M.Slider.init(elems, options);
 });
-
