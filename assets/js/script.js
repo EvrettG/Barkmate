@@ -57,6 +57,7 @@ function dogstats() {
 
 const options = {
   indicators: true,
+  height: 450,
 };
 
 document.addEventListener("DOMContentLoaded", function () {
