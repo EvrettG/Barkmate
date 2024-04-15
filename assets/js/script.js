@@ -1,3 +1,4 @@
+
 const myform = document.getElementById('myform')
 
 
@@ -41,3 +42,13 @@ function dogstats() {
       console.error('Error:', error.message);
   });
 }
+
+const options = {
+  indicators: true,
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  const elems = document.querySelectorAll(".slider");
+  const instances = M.Slider.init(elems, options);
+});
+
