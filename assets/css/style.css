@@ -36,5 +36,27 @@ header {
   background-color: rgba(128, 0, 128, 0.531);
   color: white;
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
+}
+
+img {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+header h1 {
+  font-size: 3rem;
+}
+
+label {
+  font-size: 1rem;
+}
+
+.slider {
+  margin: 1rem;
+}
+
+.btn {
+  margin-top: 1rem;
 }
