@@ -16,6 +16,7 @@ h4 {
 
 :root {
   --font-family: "Poppins", sans-serif;
+  --primary-color: rgb(78, 52, 46);
 }
 
 html {
@@ -33,7 +34,7 @@ a {
 }
 
 header {
-  background-color: rgba(128, 0, 128, 0.531);
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
   padding: 0.5rem 0rem;
@@ -54,9 +55,14 @@ label {
   color: rgb(56, 12, 12);
 }
 
-.slider {
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+.wrapper {
+  max-width: 98%;
+  margin: 1rem auto 0rem auto;
+}
+
+.collection a.collection-item {
+  color: var(--primary-color);
+  font-weight: bold;
 }
 
 .btn {
