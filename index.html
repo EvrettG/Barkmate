@@ -35,130 +35,188 @@
       <h1>BarkMate</h1>
     </header>
     <main>
-      <div class="row">
-        <div class="col s12 l3">
-          <div class="card-panel">
+      <div class="wrapper">
+        <div class="row">
+          <div class="col s12 l3">
+            <div class="card-panel">
+              <form id="test">
+                <label class="option-label">Select by breed</label>
+                <select class="browser-default" id="breedSelect">
+                  <option value="pug">Pug</option>
+                  <option value="husky">husky</option>
+                  <option value="samoyed" selected>samoyed</option>
+                </select>
+                <button
+                  class="btn brown darken-4 waves-ripple"
+                  type="submit"
+                  name="action"
+                >
+                  Submit
+                  <i class="material-icons right">send</i>
+                </button>
+                <button
+                  class="btn brown darken-4 waves-ripple"
+                  type="save"
+                  name="action"
+                >
+                  Save
+                  <i class="material-icons right d"> bookmark_border </i>
+                </button>
+              </form>
+            </div>
 
-            <form id="test">
-
-              <label class="option-label">Select by breed</label>
-              <select class="browser-default" id="breedSelect">
-                <option value="pug">Pug</option>
-                <option value="husky">husky</option>
-                <option value="samoyed">samoyed</option>
-              </select>
-              <button
-                class="btn brown darken-4 waves-ripple"
-                type="submit"
-                name="action"
-              >
-                Submit
-                <i class="material-icons right">send</i>
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class="col s12 l9">
-          <div class="row border border-2">
-            <div class="slider">
-              <ul class="slides">
-                <li>
-                  <img
-                    src="https://api-ninjas.com/images/dogs/golden_retriever.jpg"
-                  />
-                </li>
-
-                <li>
-                  <img src="https://api-ninjas.com/images/dogs/pug.jpg" />
-                </li>
-                <li>
-                  <img
-                    src="https://api-ninjas.com/images/dogs/labrador_retriever.jpg"
-                  />
-                </li>
-                <li>
-                  <img
-                    src="https://api-ninjas.com/images/dogs/poodle_(miniature).jpg"
-                  />
-                </li>
-              </ul>
+            <!-- saved list of breed here -->
+            <h6>Saved Breed</h6>
+            <div class="collection" id="saved-breed">
+              <!-- <a href="#" class="collection-item"
+                >Pug
+                <i class="material-icons right"> delete </i>
+              </a> -->
             </div>
           </div>
 
-          <div class="col s12 m12 l6">
-            <!-- first row -->
-            <div class="row">
-              <div class="col s12">
-                <ul class="collection">
-                  <li class="collection-item">
-                    Shedding:
-                    <div class="progress">
-                      <div class="determinate" id="shedding" style="width: 70%"></div>
-                    </div>
+          <div class="col s12 l9">
+            <div class="row border border-2">
+              <div class="slider">
+                <ul class="slides">
+                  <li>
+                    <img
+                      src="https://api-ninjas.com/images/dogs/golden_retriever.jpg"
+                    />
                   </li>
-                  <li class="collection-item">
-                    Barking:
-                    <div class="progress">
-                      <div class="determinate" id="barking" style="width: 70%"></div>
-                    </div>
+
+                  <li>
+                    <img src="https://api-ninjas.com/images/dogs/pug.jpg" />
                   </li>
-                  <li class="collection-item">
-                    Energy:
-                    <div class="progress">
-                      <div class="determinate" id="energy" style="width: 70%"></div>
-                    </div>
+                  <li>
+                    <img
+                      src="https://api-ninjas.com/images/dogs/labrador_retriever.jpg"
+                    />
                   </li>
-                  <li class="collection-item">
-                    Protectiveness:
-                    <div class="progress">
-                      <div class="determinate" id="protectiveness" style="width: 70%"></div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    Grooming:
-                    <div class="progress">
-                      <div class="determinate" id="grooming" style="width: 70%"></div>
-                    </div>
+                  <li>
+                    <img
+                      src="https://api-ninjas.com/images/dogs/poodle_(miniature).jpg"
+                    />
                   </li>
                 </ul>
               </div>
             </div>
-          </div>
-          <div class="col s12 m12 l6">
-            <div class="row">
-              <div class="col s12">
-                <ul class="collection">
-                  <li class="collection-item">
-                    Playfulness:
-                    <div class="progress">
-                      <div class="determinate" id="playfulness" style="width: 70%"></div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    Trainability:
-                    <div class="progress">
-                      <div class="determinate" id="trainability" style="width: 70%"></div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    Good With Childrens:
-                    <div class="progress">
-                      <div class="determinate" id="goodWC" style="width: 70%"></div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    Good With Strangers:
-                    <div class="progress">
-                      <div class="determinate" id="goodWS" style="width: 70%"></div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    Good With Dogs:
-                    <div class="progress">
-                      <div class="determinate" id="goodWD" style="width: 70%"></div>
-                    </div>
-                  </li>
-                </ul>
+
+            <div class="col s12 m12 l6">
+              <!-- first row -->
+              <div class="row">
+                <div class="col s12">
+                  <ul class="collection">
+                    <li class="collection-item">
+                      Shedding:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="shedding"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Barking:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="barking"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Energy:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="energy"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Protectiveness:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="protectiveness"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Grooming:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="grooming"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m12 l6">
+              <div class="row">
+                <div class="col s12">
+                  <ul class="collection">
+                    <li class="collection-item">
+                      Playfulness:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="playfulness"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Trainability:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="trainability"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Good With Childrens:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="goodWC"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Good With Strangers:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="goodWS"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                    <li class="collection-item">
+                      Good With Dogs:
+                      <div class="progress">
+                        <div
+                          class="determinate"
+                          id="goodWD"
+                          style="width: 70%"
+                        ></div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
