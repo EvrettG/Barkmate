@@ -35,7 +35,7 @@ function dogPicture(){
         console.log(result);
         
         return result; // Return the result for further processing if needed
-
+    })}
 const myform = document.getElementById("myform");
 
 myform.addEventListener("submit", function (event) {
