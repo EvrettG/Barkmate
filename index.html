@@ -38,13 +38,14 @@
       <div class="row">
         <div class="col s12 l3">
           <div class="card-panel">
-            <!-- form added here -->
-            <form>
+
+            <form id="test">
+
               <label class="option-label">Select by breed</label>
-              <select class="browser-default">
-                <option value="1">Pug</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+              <select class="browser-default" id="breedSelect">
+                <option value="pug">Pug</option>
+                <option value="husky">husky</option>
+                <option value="samoyed">samoyed</option>
               </select>
               <button
                 class="btn brown darken-4 waves-ripple"
@@ -92,25 +93,31 @@
                   <li class="collection-item">
                     Shedding:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="shedding" style="width: 70%"></div>
                     </div>
                   </li>
                   <li class="collection-item">
                     Barking:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="barking" style="width: 70%"></div>
                     </div>
                   </li>
                   <li class="collection-item">
                     Energy:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="energy" style="width: 70%"></div>
                     </div>
                   </li>
                   <li class="collection-item">
                     Protectiveness:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="protectiveness" style="width: 70%"></div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    Grooming:
+                    <div class="progress">
+                      <div class="determinate" id="grooming" style="width: 70%"></div>
                     </div>
                   </li>
                 </ul>
@@ -124,25 +131,31 @@
                   <li class="collection-item">
                     Playfulness:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="playfulness" style="width: 70%"></div>
                     </div>
                   </li>
                   <li class="collection-item">
                     Trainability:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="trainability" style="width: 70%"></div>
                     </div>
                   </li>
                   <li class="collection-item">
                     Good With Childrens:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="goodWC" style="width: 70%"></div>
                     </div>
                   </li>
                   <li class="collection-item">
                     Good With Strangers:
                     <div class="progress">
-                      <div class="determinate" style="width: 70%"></div>
+                      <div class="determinate" id="goodWS" style="width: 70%"></div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    Good With Dogs:
+                    <div class="progress">
+                      <div class="determinate" id="goodWD" style="width: 70%"></div>
                     </div>
                   </li>
                 </ul>
