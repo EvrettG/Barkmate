@@ -1,12 +1,23 @@
 const test = document.getElementById('test')
+const sheddingId = document.getElementById('shedding')
+const barkingId = document.getElementById('barking')
+const energyId = document.getElementById('energy')
+const protectivenessId = document.getElementById('protectiveness')
+const playfulnessId = document.getElementById('playfulness')
+const trainabilityId = document.getElementById('trainability')
+const goodWCId = document.getElementById('goodWC')
+const goodWSId = document.getElementById('goodWS')
+const goodWDId = document.getElementById('goodWD')
+const groomingID = document.getElementById('grooming')
+
 
 
 // api details
-const breed = 'Husky';
+// const breed = 'Husky';
 
 const apiKey = 'HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM';
 
-const apiUrl = `https://dog.ceo/api/breed/${breed}/images/random`
+
 
 
 // loads the picture from dog ceo
@@ -31,7 +42,7 @@ function dogPicture(){
   }
 
 // loads the stats from the api ninjas
-function dogstats() {
+function dogstats(breed) {
   return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breed}`, {
       method: 'GET',
       headers: {
@@ -66,10 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function createdogCard(data){
-    const dogCard = document.createElement('div');
-    const breedName = document.createElement('h3');
-    const averageLifeExpec = document.createElement('h4');
-
+    const breedName = data[0].name
+    const averageLifeExpec = (data[0].max_life_expectancy +data[0].min_life_expectancy) / 2
+    console.log(averageLifeExpec)
     const barking = data[0].barking
     const coatLength = data[0].coat_length
     const drooling = [0].drooling
@@ -83,13 +93,25 @@ function createdogCard(data){
     const shedding = data[0].shedding
     const trainability = data[0].trainability
 
+    sheddingId.style.width = `${(shedding * 20)}%`
+    barkingId.style.width = `${(barking * 20)}%`
+    energyId.style.width = `${(energy * 20)}%`
+    protectivenessId.style.width = `${(protectiveness * 20)}%`
+    trainabilityId.style.width = `${(trainability * 20)}%`
+    groomingID.style.width = `${(grooming * 20)}%`
+    goodWDId.style.width = `${(goodDogs * 20)}%`
+    goodWCId.style.width = `${(goodKids * 20)}%`
+    goodWSId.style.width = `${(goodStangers * 20)}%`
+
 }
 
 
-test.addEventListener('click', function(event) {
+test.addEventListener('submit', function(event) {
     event.preventDefault();
+    const breed = document.getElementById('breedSelect').value
+    console.log(breed)
 
-    dogstats()
+    dogstats(breed)
     .then(data => {
         console.log(data);// Log the data when the promise resolves
         console.log(data[0].barking);
