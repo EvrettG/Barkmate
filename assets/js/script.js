@@ -14,7 +14,7 @@ const groomingID = document.getElementById('grooming')
 
 // api details
 // const breed = 'Husky';
-const breed = "golden retriever";
+// const breed = "golden retriever";
 const apiKey = 'HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM';
 
 
@@ -38,7 +38,7 @@ function dogPicture(){
     })}
 const myform = document.getElementById("myform");
 
-myform.addEventListener("submit", function (event) {
+test.addEventListener("submit", function (event) {
   event.preventDefault();
 
   dogstats()
@@ -60,8 +60,8 @@ myform.addEventListener("submit", function (event) {
 
 
 
-function dogstats() {
-
+function dogstats(breed) {
+    
   return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breed}`, {
     method: "GET",
     headers: {
