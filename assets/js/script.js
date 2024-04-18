@@ -10,7 +10,6 @@ const goodWCId = document.getElementById("goodWC");
 const goodWSId = document.getElementById("goodWS");
 const goodWDId = document.getElementById("goodWD");
 const groomingID = document.getElementById("grooming");
-const myform = document.getElementById("myform");
 const breedNameId = document.getElementById("breedName")
 const averageLifeId = document.getElementById("averageLife")
 const myform = document.getElementById("myform");
