@@ -1,3 +1,4 @@
+// list of variables taken fom the index.html and used throughout the javascript code
 const test = document.getElementById("test");
 const sheddingId = document.getElementById("shedding");
 const barkingId = document.getElementById("barking");
@@ -9,7 +10,14 @@ const goodWCId = document.getElementById("goodWC");
 const goodWSId = document.getElementById("goodWS");
 const goodWDId = document.getElementById("goodWD");
 const groomingID = document.getElementById("grooming");
+const myform = document.getElementById("myform");
+const breedNameId = document.getElementById("breedName")
+const averageLifeId = document.getElementById("averageLife")
+const myform = document.getElementById("myform");
+// api key for api ninjas
 const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
+
+
 //---------------------Save Button Function-------------------------------
 // getting the save button from the DOM
 const saveBtn = document.querySelector("button[type='save']");
@@ -43,43 +51,17 @@ function handleSave(e) {
 saveBtn.addEventListener("click", handleSave);
 // ----------------------------------------------------------------------------
 
-// api details
-// const breed = 'Husky';
-// const breed = "golden retriever";
-
-
 // loads the picture from dog ceo
-function dogPicture() {
-  return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breed}`, {
-    method: "GET",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-      return response;
-    })
-    .then((result) => {
-      console.log(result);
 
-      return result; // Return the result for further processing if needed
-    });
+async function dogPicture(breed) {
+    const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/4`);
+    const dogpic = await response.json();
+    console.log(dogpic);
+    document.getElementById('image1').src = dogpic.message[0]
+    document.getElementById('image2').src = dogpic.message[1]
+    document.getElementById('image3').src = dogpic.message[2]
+    document.getElementById('image4').src = dogpic.message[3]
 }
-const myform = document.getElementById("myform");
-
-test.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  dogstats()
-    .then((data) => {
-      console.log(data); // Log the data when the promise resolves
-    })
-    .catch((error) => {
-      console.error("Error:", error.message);
-    });
-});
-
-// api details
 
 function dogstats(breed) {
   return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breed}`, {
@@ -116,45 +98,32 @@ document.addEventListener("DOMContentLoaded", function () {
   const instances = M.Slider.init(elems, options);
 });
 
-function createdogCard(data) {
-  const breedName = data[0].name;
-  const averageLifeExpec =
-    (data[0].max_life_expectancy + data[0].min_life_expectancy) / 2;
-  console.log(averageLifeExpec);
-  const barking = data[0].barking;
-  const coatLength = data[0].coat_length;
-  const drooling = [0].drooling;
-  const energy = data[0].energy;
-  const goodKids = data[0].good_with_children;
-  const goodDogs = data[0].good_with_other_dogs;
-  const goodStangers = data[0].good_with_strangers;
-  const grooming = data[0].grooming;
-  const playFulness = data[0].playfulness;
-  const protectiveness = data[0].protectiveness;
-  const shedding = data[0].shedding;
-  const trainability = data[0].trainability;
-
-  sheddingId.style.width = `${shedding * 20}%`;
-  barkingId.style.width = `${barking * 20}%`;
-  energyId.style.width = `${energy * 20}%`;
-  protectivenessId.style.width = `${protectiveness * 20}%`;
-  trainabilityId.style.width = `${trainability * 20}%`;
-  groomingID.style.width = `${grooming * 20}%`;
-  goodWDId.style.width = `${goodDogs * 20}%`;
-  goodWCId.style.width = `${goodKids * 20}%`;
-  goodWSId.style.width = `${goodStangers * 20}%`;
+// Alters stats, and picture on the main page based on breed selected and parsed
+// through the dogstats function
+function createdogCard(data){
+    sheddingId.style.width = `${(data[0].shedding * 20)}%`
+    barkingId.style.width = `${(data[0].barking * 20)}%`
+    energyId.style.width = `${(data[0].energy * 20)}%`
+    protectivenessId.style.width = `${(data[0].protectiveness * 20)}%`
+    trainabilityId.style.width = `${(data[0].trainability * 20)}%`
+    groomingID.style.width = `${(data[0].grooming * 20)}%`
+    goodWDId.style.width = `${(data[0].good_with_other_dogs * 20)}%`
+    goodWCId.style.width = `${(data[0].good_with_children * 20)}%`
+    goodWSId.style.width = `${(data[0].good_with_strangers * 20)}%`    
 }
 
-test.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const breed = document.getElementById("breedSelect").value;
-  console.log(breed);
+// function that, upon pressing submit, will get the selected dog breed and run it through
+// the function to produce appropiate stats and picture's
+test.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const breed = document.getElementById('breedSelect').value
+    console.log(breed)
 
-  dogstats(breed)
-    .then((data) => {
-      console.log(data); // Log the data when the promise resolves
-      console.log(data[0].barking);
-      createdogCard(data);
+    dogstats(breed)
+    .then(data => {
+        console.log(data);// Log the data when the promise resolves
+        createdogCard(data); 
+        dogPicture(breed)
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -206,4 +175,5 @@ function displaySavedbreeds() {
 
 document.addEventListener("DOMContentLoaded", function(){
   displaySavedbreeds();
+
 });
