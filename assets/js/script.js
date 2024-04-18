@@ -11,8 +11,12 @@ const goodWSId = document.getElementById("goodWS");
 const goodWDId = document.getElementById("goodWD");
 const groomingID = document.getElementById("grooming");
 const myform = document.getElementById("myform");
+const breedNameId = document.getElementById("breedName")
+const averageLifeId = document.getElementById("averageLife")
+const myform = document.getElementById("myform");
 // api key for api ninjas
 const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
+
 
 //---------------------Save Button Function-------------------------------
 // getting the save button from the DOM
@@ -26,6 +30,9 @@ function handleSave(e) {
   const selectBreed = document.getElementById("breedSelect");
   const selectedOption = selectBreed.options[selectBreed.selectedIndex];
   const selectedValue = selectedOption.value;
+
+  // Saves the selected breed to local storage
+  saveBreedLocalstorage(selectedValue);
 
   const anchor = document.createElement("a");
   anchor.href = "#";
@@ -121,4 +128,52 @@ test.addEventListener('submit', function(event) {
     .catch((error) => {
       console.error("Error:", error.message);
     });
+});
+
+// saves breed to local storage and creates an array if needed
+function saveBreedLocalstorage(breed) {
+  const savedBreeds = JSON.parse(localStorage.getItem("savedBreeds")) || [];
+  // this makes it so there are no duplicates in breeds saved
+  if (!savedBreeds.includes(breed)) {
+    savedBreeds.push(breed);
+    localStorage.setItem("savedBreeds", JSON.stringify(savedBreeds));
+  }
+}
+
+// makes page reload have the saved breed list
+function displaySavedbreeds() {
+  const savedBreeds = JSON.parse(localStorage.getItem("savedBreeds")) ||  [];
+  const savedBreedEl = document.getElementById("saved-breed");
+
+  savedBreedEl.innerHTML = '';
+
+  savedBreeds.forEach(function(breed){
+    const listItem = document.createElement("li");
+    listItem.className = "collection-item";
+
+    const anchor = document.createElement("a");
+    anchor.href = "#";
+    anchor.textContent = breed;
+// icon is the delete button
+    const icon = document.createElement("i");
+    icon.className = "material-icons right delete-button";
+    icon.textContent = "delete";
+
+    icon.addEventListener("click", function() {
+      const index = savedBreeds.indexOf(breed);
+      if (index > -1) {
+        savedBreeds.splice(index, 1);
+        localStorage.setItem("savedBreeds", JSON.stringify(savedBreeds));
+      }
+      savedBreedEl.removeChild(listItem);
+    });
+    listItem.appendChild(anchor);
+    listItem.appendChild(icon);
+    savedBreedEl.appendChild(listItem);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  displaySavedbreeds();
+
 });
