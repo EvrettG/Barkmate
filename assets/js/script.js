@@ -12,7 +12,9 @@ const goodWDId = document.getElementById("goodWD");
 const groomingID = document.getElementById("grooming");
 const breedNameId = document.getElementById("breedName")
 const averageLifeId = document.getElementById("averageLife")
-const myform = document.getElementById("myform");
+const modal = document.getElementById("myModal");
+const span = document.getElementsByClassName("close")[0];
+const confirmBtn = document.getElementById("confirmBtn");
 // api key for api ninjas
 const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
 
@@ -32,7 +34,8 @@ function handleSave(e, breed) {
   const selectedValue = selectedOption.value;
   const savedBreeds = JSON.parse(localStorage.getItem("savedBreeds")) ||  [];
   if(savedBreeds.includes(selectedValue)){
-    console.log(true);
+    modal.style.display = "block";
+    return;
   } else {
     console.log(false)
   }
@@ -226,3 +229,15 @@ document.addEventListener("DOMContentLoaded", function(){
   displaySavedbreeds();
 
 });
+
+// code to make the modal disapear
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
+
+confirmBtn.onclick = function() {
+  modal.style.display = "none";
+}
