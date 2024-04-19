@@ -22,25 +22,58 @@ const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
 const saveBtn = document.querySelector("button[type='save']");
 const savedBreedEl = document.getElementById("saved-breed");
 
-function handleSave(e) {
+function handleSave(e, breed) {
+  
   savedBreedEl.style.display = "block";
   e.preventDefault();
 
   const selectBreed = document.getElementById("breedSelect");
   const selectedOption = selectBreed.options[selectBreed.selectedIndex];
   const selectedValue = selectedOption.value;
+  const savedBreeds = JSON.parse(localStorage.getItem("savedBreeds")) ||  [];
+  if(savedBreeds.includes(selectedValue)){
+    console.log(true);
+  } else {
+    console.log(false)
+  }
 
   // Saves the selected breed to local storage
   saveBreedLocalstorage(selectedValue);
 
   const anchor = document.createElement("a");
-  anchor.href = "#";
+  // anchor.href = "#";
   anchor.className = "collection-item";
   anchor.textContent = selectedValue;
-
+  breed = anchor.textContent
+// 
+  anchor.addEventListener("click", function() {
+    console.log(breed)
+    dogPicture(breed);
+    dogstats(breed)
+    .then(data => {
+        console.log(data);// Log the data when the promise resolves
+        createdogCard(data);     
+    })
+  })
+// 
   const icon = document.createElement("i");
   icon.className = "material-icons right";
   icon.textContent = "delete";
+
+  icon.addEventListener("click", function() {
+    event.stopPropagation();
+    // saved breeds must be loaded again to after the breed is added so that the function can recognise the updated list
+    const savedBreeds = JSON.parse(localStorage.getItem("savedBreeds")) ||  [];
+    const index = savedBreeds.indexOf(breed);
+    console.log(breed)
+    console.log(savedBreeds)
+    console.log(index)
+    if (index > -1) {
+      savedBreeds.splice(index, 1);
+      localStorage.setItem("savedBreeds", JSON.stringify(savedBreeds));
+    }
+    savedBreedEl.removeChild(anchor);
+  });
 
   anchor.append(icon);
 
@@ -118,11 +151,11 @@ test.addEventListener('submit', function(event) {
     const breed = document.getElementById('breedSelect').value
     console.log(breed)
 
+    dogPicture(breed)
     dogstats(breed)
     .then(data => {
         console.log(data);// Log the data when the promise resolves
         createdogCard(data); 
-        dogPicture(breed)
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -151,21 +184,38 @@ function displaySavedbreeds() {
     listItem.className = "collection-item";
 
     const anchor = document.createElement("a");
-    anchor.href = "#";
     anchor.textContent = breed;
+    
+    // Dog breed text acts as button for function
+    anchor.addEventListener("click", function() {
+      breed = anchor.textContent;
+      console.log(breed)
+      dogPicture(breed);
+      dogstats(breed)
+      .then(data => {
+          console.log(data);// Log the data when the promise resolves
+          createdogCard(data);     
+      })
+    })
+
 // icon is the delete button
     const icon = document.createElement("i");
     icon.className = "material-icons right delete-button";
     icon.textContent = "delete";
 
     icon.addEventListener("click", function() {
+      event.stopPropagation();
       const index = savedBreeds.indexOf(breed);
+      console.log(breed)
+      console.log(savedBreeds)
+      console.log(index)
       if (index > -1) {
         savedBreeds.splice(index, 1);
         localStorage.setItem("savedBreeds", JSON.stringify(savedBreeds));
       }
       savedBreedEl.removeChild(listItem);
     });
+    // listItem.appendChild(anchor);
     listItem.appendChild(anchor);
     listItem.appendChild(icon);
     savedBreedEl.appendChild(listItem);
