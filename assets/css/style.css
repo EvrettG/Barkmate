@@ -31,6 +31,15 @@ body {
 
 a {
   text-decoration: none;
+  color: var(--primary-color);
+}
+
+a:hover{
+  cursor: pointer;
+}
+
+i:hover{
+  cursor: pointer;
 }
 
 header {
@@ -44,6 +53,7 @@ img {
   width: auto;
   height: 100%;
   object-fit: contain;
+  z-index: 1;
 }
 
 header h1 {
@@ -83,6 +93,51 @@ label {
   font-weight: bold;
 }
 
-a{
-  color: var(--primary-color);
+/* Modal content */
+
+/* The Modal (background) */
+.warning {
+  display: none; 
+  position: fixed; 
+  z-index: 2; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.warning-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  text-align: center;
+  border-radius: 30px;
+}
+
+/* confirm button */
+.confirmBtn{
+  margin-top: 30px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
