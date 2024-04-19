@@ -77,3 +77,12 @@ label {
 .btn {
   margin-top: 1rem;
 }
+
+.collection-item {
+  list-style: none;
+  font-weight: bold;
+}
+
+a{
+  color: var(--primary-color);
+}
