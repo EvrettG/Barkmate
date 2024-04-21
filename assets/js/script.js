@@ -24,21 +24,21 @@ const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
 const saveBtn = document.querySelector("button[type='save']");
 const savedBreedEl = document.getElementById("saved-breed");
 
-// splits breeds with -
+// Removes the last part of hyphenated breed
 function removeAfterDash(breed) {
   return breed.split('-').shift();
 }
-
+// Removes the first part of hyphenated breed
 function removeBeforeDash(breed){
   return breed.split('-').pop();
 }
-
+// used to capitlizes the first character of a string
 function capitalizeTarget(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 
-
+// function for the save button
 function handleSave(e, breed) {
   
   savedBreedEl.style.display = "block";
@@ -113,7 +113,7 @@ async function dogPicture(breed, ) {
       document.getElementById('image4').src = dogpic.message[3]
           
 }
-
+// gets the stats from the apiNinja
 function dogstats(breed) {
   console.log(breed)
   breedUrl = removeAfterDash(breed);
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const instances = M.Slider.init(elems, options);
 });
 
-// Alters stats, and picture on the main page based on breed selected and parsed
+// Alters statson the main page based on breed selected and parsed
 // through the dogstats function
 function createdogCard(data, breed){
 
@@ -188,9 +188,7 @@ test.addEventListener('submit', function(event) {
     let breed = document.getElementById('breedSelect').value
 
     dogPicture(breed,)
-
-    dogstats(breed,)
-    
+    dogstats(breed,)   
     .then(data => {
         console.log(data);// Log the data when the promise resolves
         createdogCard(data, breed); 
