@@ -24,6 +24,21 @@ const apiKey = "HvKs7iQXKzjn7CZzWg2qmA==wrsKN7snFLYJDUvM";
 const saveBtn = document.querySelector("button[type='save']");
 const savedBreedEl = document.getElementById("saved-breed");
 
+// splits breeds with -
+function removeAfterDash(breed) {
+  return breed.split('-').shift();
+}
+
+function removeBeforeDash(breed){
+  return breed.split('-').pop();
+}
+
+function capitalizeTarget(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+
 function handleSave(e, breed) {
   
   savedBreedEl.style.display = "block";
@@ -44,7 +59,6 @@ function handleSave(e, breed) {
   saveBreedLocalstorage(selectedValue);
 
   const anchor = document.createElement("a");
-  // anchor.href = "#";
   anchor.className = "collection-item";
   anchor.textContent = selectedValue;
   breed = anchor.textContent
@@ -55,10 +69,10 @@ function handleSave(e, breed) {
     dogstats(breed)
     .then(data => {
         console.log(data);// Log the data when the promise resolves
-        createdogCard(data);     
+        createdogCard(data, breed);     
     })
   })
-// 
+// The delete button
   const icon = document.createElement("i");
   icon.className = "material-icons right";
   icon.textContent = "delete";
@@ -88,18 +102,23 @@ saveBtn.addEventListener("click", handleSave);
 
 // loads the picture from dog ceo
 
-async function dogPicture(breed) {
-    const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/4`);
-    const dogpic = await response.json();
-    console.log(dogpic);
-    document.getElementById('image1').src = dogpic.message[0]
-    document.getElementById('image2').src = dogpic.message[1]
-    document.getElementById('image3').src = dogpic.message[2]
-    document.getElementById('image4').src = dogpic.message[3]
+async function dogPicture(breed, ) {
+  breedUrl = breed.replace(/-/g, '/');
+      const response = await fetch(`https://dog.ceo/api/breed/${breedUrl}/images/random/4`);
+      const dogpic = await response.json();
+      // console.log(dogpic);
+      document.getElementById('image1').src = dogpic.message[0]
+      document.getElementById('image2').src = dogpic.message[1]
+      document.getElementById('image3').src = dogpic.message[2]
+      document.getElementById('image4').src = dogpic.message[3]
+          
 }
 
 function dogstats(breed) {
-  return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breed}`, {
+  console.log(breed)
+  breedUrl = removeAfterDash(breed);
+  console.log(breedUrl)
+  return fetch(`https://api.api-ninjas.com/v1/dogs?name=${breedUrl}`, {
     method: "GET",
     headers: {
       "X-Api-Key": apiKey,
@@ -113,7 +132,7 @@ function dogstats(breed) {
       return response.json();
     })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
 
       return result; // Return the result for further processing if needed
     })
@@ -135,30 +154,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Alters stats, and picture on the main page based on breed selected and parsed
 // through the dogstats function
-function createdogCard(data){
-    sheddingId.style.width = `${(data[0].shedding * 20)}%`
-    barkingId.style.width = `${(data[0].barking * 20)}%`
-    energyId.style.width = `${(data[0].energy * 20)}%`
-    protectivenessId.style.width = `${(data[0].protectiveness * 20)}%`
-    trainabilityId.style.width = `${(data[0].trainability * 20)}%`
-    groomingID.style.width = `${(data[0].grooming * 20)}%`
-    goodWDId.style.width = `${(data[0].good_with_other_dogs * 20)}%`
-    goodWCId.style.width = `${(data[0].good_with_children * 20)}%`
-    goodWSId.style.width = `${(data[0].good_with_strangers * 20)}%`    
+function createdogCard(data, breed){
+
+  let x = 0
+  if (breed.includes("-")){
+   const target = removeBeforeDash(breed)
+   console.log(target)
+   let cTarget = capitalizeTarget(target)
+   console.log(cTarget)
+   const foundObject = data.findIndex(obj => obj.name.includes(cTarget));
+   console.log(foundObject)
+   x = foundObject
+  } 
+  console.log(breed)
+  console.log(x)
+    breedNameId.textContent = `${(data[x].name)}`
+    averageLifeId.textContent = `This breed lives between ${(data[x].min_life_expectancy)} and ${(data[x].max_life_expectancy)} years`
+    sheddingId.style.width = `${(data[x].shedding * 20)}%`
+    barkingId.style.width = `${(data[x].barking * 20)}%`
+    energyId.style.width = `${(data[x].energy * 20)}%`
+    protectivenessId.style.width = `${(data[x].protectiveness * 20)}%`
+    trainabilityId.style.width = `${(data[x].trainability * 20)}%`
+    groomingID.style.width = `${(data[x].grooming * 20)}%`
+    goodWDId.style.width = `${(data[x].good_with_other_dogs * 20)}%`
+    goodWCId.style.width = `${(data[x].good_with_children * 20)}%`
+    goodWSId.style.width = `${(data[x].good_with_strangers * 20)}%`    
 }
 
 // function that, upon pressing submit, will get the selected dog breed and run it through
 // the function to produce appropiate stats and picture's
 test.addEventListener('submit', function(event) {
     event.preventDefault();
-    const breed = document.getElementById('breedSelect').value
-    console.log(breed)
+    let breed = document.getElementById('breedSelect').value
 
-    dogPicture(breed)
-    dogstats(breed)
+    dogPicture(breed,)
+
+    dogstats(breed,)
+    
     .then(data => {
         console.log(data);// Log the data when the promise resolves
-        createdogCard(data); 
+        createdogCard(data, breed); 
     })
     .catch((error) => {
       console.error("Error:", error.message);
@@ -197,7 +232,7 @@ function displaySavedbreeds() {
       dogstats(breed)
       .then(data => {
           console.log(data);// Log the data when the promise resolves
-          createdogCard(data);     
+          createdogCard(data, breed);     
       })
     })
 
